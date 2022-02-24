@@ -22,7 +22,7 @@ const ReactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+        get: (createdAtValidator) => moment(createdAtValidator).format('MMM DD, YYYY [at] hh:mm a')
     }
 }, {
     toJSON: {
@@ -46,6 +46,7 @@ const ThoughtSchema = new Schema({
     username: {
         type: String,
         required: 'Enter your Username',
+        minLength: 6
 
     },
     reactions: [ReactionSchema]
