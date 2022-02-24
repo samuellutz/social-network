@@ -9,21 +9,19 @@ const UserSchema = new Schema({
         type: String,
         unique: true,
         required: true,
-        trim: true,
-        minLength: 6
+        trim: true
     },
     email: {
         type: String,
+        required: [true, 'User email address required'],
         unique: true,
-        required: 'Please enter an email.',
         validate: {
             validator: function (v) {
-              return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
+                return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v);
             },
-            message: props => `${props.value} is not a valid email address!`,
-          },
+            message: props => `${props.value} is not a valid email address!`
+        },
     },
-   
     thoughts: [{
         type: Schema.Types.ObjectId,
         ref: 'Thought'
@@ -40,12 +38,10 @@ const UserSchema = new Schema({
     id: false
 });
 
-// create User model using UserSchema
-const User = model('User', UserSchema);
-
 UserSchema.virtual('friendCount').get(function () {
     return this.friends.length;
 });
 
-// export the User model
-module.exports = User; 
+const User = model('User', UserSchema);
+
+module.exports = User;
