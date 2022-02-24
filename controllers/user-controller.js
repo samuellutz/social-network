@@ -29,7 +29,7 @@ const userController = {
     },
 
     //get one user by id
-    getUserById({
+    getUsersById({
         params
     }, res) {
         User.findOne({
